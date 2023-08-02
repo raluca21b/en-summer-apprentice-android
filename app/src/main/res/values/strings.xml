@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">TicketManagement</string>
+    <string name="toolbar_title">Buy yourself an unforgettable experience</string>
+    <string name="event_name">Untold</string>
+    <string name="event_descr">Muzica de calitate si artisti pe masura</string>
+    <string name="startDate">03.08.2023</string>
+    <string name="endDate">05.08.2023</string>
+    <string name="searchPrompt">Search an event...</string>
+    <string-array name="events_names_full">
+        <item>Untold</item>
+        <item>Electric Castle</item>
+        <item>Meci de fotbal</item>
+        <item>Festival de vin</item>
+    </string-array>
+    <string-array name="startDates">
+        <item>02.08.2023</item>
+        <item>19.07.2023</item>
+        <item>01.09.2023</item>
+        <item>20.08.2023</item>
+    </string-array>
+    <string-array name="endDates">
+        <item>05.08.2023</item>
+        <item>24.07.2023</item>
+        <item>01.09.2023</item>
+        <item>20.08.2023</item>
+    </string-array>
+    <string-array name="events_description_full">
+        <item>Muzica de calitate si artisti pe masura</item>
+        <item>Muzica Electronica si nu numai</item>
+        <item>Fotbal</item>
+        <item>Wine Festival</item>
+    </string-array>
+</resources>
