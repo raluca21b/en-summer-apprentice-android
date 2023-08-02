@@ -11,6 +11,11 @@
     <color name="azure">#007fff</color>
     <color name="almond">#ffebcd</color>
     <color name="bubbles">#e7feff</color>
+    <color name="silver">#dbe9f4</color>
+    <color name="ateneo_blue">#003a6c</color>
     <color name="light_blue">#b0e2ff</color>
+    <color name="blue_gradient_start">#2980b9</color>
+    <color name="blue_gradient_end">#6dd5fa</color>
+
 
 </resources>

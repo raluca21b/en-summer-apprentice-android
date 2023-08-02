@@ -1,6 +1,5 @@
 package com.example.ticketmanagement;
 
-import java.util.Date;
 
 public class EventsModel {
     private final String eventName;

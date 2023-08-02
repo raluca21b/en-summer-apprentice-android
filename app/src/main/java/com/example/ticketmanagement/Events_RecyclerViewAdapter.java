@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class Events_RecyclerViewAdapter extends RecyclerView.Adapter<Events_RecyclerViewAdapter.MyViewHolder> {
+public class Events_RecyclerViewAdapter extends RecyclerView.Adapter<Events_RecyclerViewAdapter.MyEventsViewHolder> {
     Context context;
     ArrayList<EventsModel> eventsModels;
 
@@ -25,14 +25,14 @@ public class Events_RecyclerViewAdapter extends RecyclerView.Adapter<Events_Recy
 
     @NonNull
     @Override
-    public Events_RecyclerViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Events_RecyclerViewAdapter.MyEventsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycler_view_event_row,parent,false);
-        return new Events_RecyclerViewAdapter.MyViewHolder(view);
+        return new Events_RecyclerViewAdapter.MyEventsViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Events_RecyclerViewAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull Events_RecyclerViewAdapter.MyEventsViewHolder holder, int position) {
         holder.textViewName.setText(eventsModels.get(position).getEventName());
         holder.textViewDescription.setText(eventsModels.get(position).getEventDescription());
         holder.textViewStartDate.setText(eventsModels.get(position).getStartDate());
@@ -54,7 +54,7 @@ public class Events_RecyclerViewAdapter extends RecyclerView.Adapter<Events_Recy
         notifyDataSetChanged();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyEventsViewHolder extends RecyclerView.ViewHolder{
         ImageView imageViewEvent;
         TextView textViewName;
         TextView textViewDescription;
@@ -63,7 +63,7 @@ public class Events_RecyclerViewAdapter extends RecyclerView.Adapter<Events_Recy
 
         ConstraintLayout expandableLayout;
         ConstraintLayout headLayout;
-        public MyViewHolder(@NonNull View itemView) {
+        public MyEventsViewHolder(@NonNull View itemView) {
             super(itemView);
             imageViewEvent = itemView.findViewById(R.id.image_for_event);
             textViewName = itemView.findViewById(R.id.textView_event_name);
