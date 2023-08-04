@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         setUpEventsModel();
 
-        adapter = new Events_RecyclerViewAdapter(this,eventsModels);
+        adapter = new Events_RecyclerViewAdapter(this,eventsModels,apiServiceJava);
         recyclerViewEvent.setAdapter(adapter);
         recyclerViewEvent.setLayoutManager(new LinearLayoutManager(this));
 

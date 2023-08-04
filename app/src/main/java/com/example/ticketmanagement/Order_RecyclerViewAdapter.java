@@ -19,15 +19,25 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ticketmanagement.dtos.OrderPatchDTO;
+import com.example.ticketmanagement.services.ApiServiceJava;
+import com.example.ticketmanagement.services.ApiServiceNet;
+
 import java.util.ArrayList;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Order_RecyclerViewAdapter extends RecyclerView.Adapter<Order_RecyclerViewAdapter.MyOrderViewHolder> {
     Context context;
     ArrayList<OrderModel> orderModels;
+    ApiServiceNet apiServiceNet;
 
-    public Order_RecyclerViewAdapter(Context context, ArrayList<OrderModel> orderModels) {
+    public Order_RecyclerViewAdapter(Context context, ArrayList<OrderModel> orderModels, ApiServiceNet apiServiceNet) {
         this.context = context;
+        this.apiServiceNet = apiServiceNet;
         this.orderModels = orderModels;
         Log.i("HELP","I AM HERE IN Order_RecyclerViewAdapter");
         Log.i("HELP","ORDERS FOUND " + getItemCount());
@@ -91,9 +101,27 @@ public class Order_RecyclerViewAdapter extends RecyclerView.Adapter<Order_Recycl
                     .setMessage("Are you sure you want to delete?")
                     .setPositiveButton("Yes", (dialog, which) -> {
 
-                        orderModels.remove(position);
-                        notifyItemRemoved(position);
-                        dialog.dismiss();
+                        apiServiceNet.deleteOrder(orderModels.get(position).getOrderID(), new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if (response.isSuccessful()){
+                                    Toast.makeText(context,"Order deleted Succesfully",Toast.LENGTH_LONG).show();
+                                    orderModels.remove(position);
+                                    notifyItemRemoved(position);
+                                    dialog.dismiss();
+                                }else{
+
+                                    Log.e("API_DELETE", "Unsuccessful delete " + orderModels.get(position).getOrderID()
+                                                                                        +"response:" + response.code());
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Log.e("API_DELETE", "Call failed delete : " + t.getMessage());
+                            }
+                        });
+
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
                     .show();
@@ -136,10 +164,29 @@ public class Order_RecyclerViewAdapter extends RecyclerView.Adapter<Order_Recycl
                 OrderModel orderModel = orderModels.get(getAdapterPosition());
                 orderModel.setNumberOfTickets(numberOfTickets);
                 orderModel.setCategory(selectedCategory);
+                OrderPatchDTO orderPatchDTO = new OrderPatchDTO(orderModel.getOrderID(),orderModel.getEventID(),
+                                                                orderModel.getCategory(),orderModel.getNumberOfTickets());
 
-                notifyDataSetChanged();
+                apiServiceNet.patchOrder(orderPatchDTO, new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.isSuccessful()){
+                            Toast.makeText(context,"Order updated Succesfully",Toast.LENGTH_LONG).show();
+                            notifyDataSetChanged();
+                            dialog.dismiss();
 
-                dialog.dismiss();
+                        }else{
+                            Toast.makeText(context,"Something went wrong...",Toast.LENGTH_LONG).show();
+                            Log.e("API_DELETE", "Unsuccessful update response:" + response.code());
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.e("API_DELETE", "Call failure update:" + t.getMessage());
+
+                    }
+                });
+
             });
 
             dialog.show();

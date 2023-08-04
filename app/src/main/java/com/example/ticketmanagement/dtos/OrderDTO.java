@@ -2,21 +2,31 @@ package com.example.ticketmanagement.dtos;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 public class OrderDTO implements Serializable {
     private int eventID;
+    private int orderID;
+
     private String orderedAt;
     private TicketCategoryDTO ticketCategory;
     private int numberOfTickets;
     private BigDecimal totalPrice;
 
-    public OrderDTO(int eventID, String orderedAt, TicketCategoryDTO ticketCategory, int numberOfTickets, BigDecimal totalPrice) {
+    public OrderDTO(int eventID, int orderID, String orderedAt, TicketCategoryDTO ticketCategory, int numberOfTickets, BigDecimal totalPrice) {
         this.eventID = eventID;
+        this.orderID = orderID;
         this.orderedAt = orderedAt;
         this.ticketCategory = ticketCategory;
         this.numberOfTickets = numberOfTickets;
         this.totalPrice = totalPrice;
+    }
+
+    public int getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 
     public int getEventID() {

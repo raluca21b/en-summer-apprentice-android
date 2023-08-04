@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,20 +21,30 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ticketmanagement.dtos.EventDTO;
+import com.example.ticketmanagement.dtos.OrderDTO;
+import com.example.ticketmanagement.dtos.RequestOrderDTO;
 import com.example.ticketmanagement.dtos.TicketCategoryDTO;
+import com.example.ticketmanagement.services.ApiServiceJava;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Events_RecyclerViewAdapter extends RecyclerView.Adapter<Events_RecyclerViewAdapter.MyEventsViewHolder> {
     Context context;
     ArrayList<EventsModel> eventsModels;
     RadioGroup radioGroup;
+    ApiServiceJava apiServiceJava;
 
 
-    public Events_RecyclerViewAdapter(Context context, ArrayList<EventsModel> eventsModels) {
+    public Events_RecyclerViewAdapter(Context context, ArrayList<EventsModel> eventsModels,ApiServiceJava apiServiceJava) {
         this.context = context;
         this.eventsModels = eventsModels;
+        this.apiServiceJava = apiServiceJava;
     }
 
     @NonNull
@@ -128,10 +139,34 @@ public class Events_RecyclerViewAdapter extends RecyclerView.Adapter<Events_Recy
             buyButton = itemView.findViewById(R.id.buttonBuy);
             buyButton.setOnClickListener(view -> {
                 String inputText = editTextTickets.getText().toString().trim();
+                int numberOfTickets = Integer.parseInt(inputText);
                 if (!inputText.isEmpty()) {
+                    EventDTO eventDTO = eventsModels.get(getAdapterPosition()).getEventDTO();
+                    TicketCategoryDTO ticketCategoryDTO;
+                    int radioButtonSelected = radioGroup.getCheckedRadioButtonId();
+                    RadioButton selectedRadioButton = itemView.findViewById(radioButtonSelected);
+                    String radioName = selectedRadioButton.getText().toString();
+                    ticketCategoryDTO = findTicketCategoryByName(radioName);
+                    RequestOrderDTO requestOrderDTO = new RequestOrderDTO(eventDTO.getEventID(),
+                                                                          ticketCategoryDTO.getTicketCategoryID(),
+                                                                            numberOfTickets);
+                    apiServiceJava.placeOrder(requestOrderDTO, new Callback<OrderDTO>() {
+                        @Override
+                        public void onResponse(Call<OrderDTO> call, Response<OrderDTO> response) {
+                            if (response.isSuccessful()){
+                                Toast.makeText(itemView.getContext(), "BOUGHT SUCCESSFULLY", Toast.LENGTH_SHORT).show();
+                                editTextTickets.setText("");
+                            }else{
+                                Log.e("API_DELETE", "Unsuccessful buy " + response.code());
+                            }
+                        }
 
-                    Toast.makeText(itemView.getContext(), "BOUGHT SUCCESSFULLY", Toast.LENGTH_SHORT).show();
-                    editTextTickets.setText("");
+                        @Override
+                        public void onFailure(Call<OrderDTO> call, Throwable t) {
+                            Log.e("API_DELETE", "Unsuccessful buy " + t.getMessage());
+
+                        }
+                    });
                 } else {
                     Toast.makeText(itemView.getContext(), "Please enter the number of tickets", Toast.LENGTH_SHORT).show();
                 }
@@ -140,7 +175,7 @@ public class Events_RecyclerViewAdapter extends RecyclerView.Adapter<Events_Recy
         private TicketCategoryDTO findTicketCategoryByName(String categoryName) {
             EventsModel eventModel = eventsModels.get(getAdapterPosition());
             for (TicketCategoryDTO ticketCategory : eventModel.getEventDTO().getTicketsCategory()) {
-                if (ticketCategory.getDescription().equals(categoryName)) {
+                if (categoryName.contains(ticketCategory.getDescription())) {
                     return ticketCategory;
                 }
             }

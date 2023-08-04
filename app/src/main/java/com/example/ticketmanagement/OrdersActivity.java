@@ -15,7 +15,6 @@ import com.example.ticketmanagement.dtos.OrderDTO;
 import com.example.ticketmanagement.services.ApiServiceJava;
 import com.example.ticketmanagement.services.ApiServiceNet;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,12 +27,14 @@ public class OrdersActivity extends AppCompatActivity {
     String eventName;
     Order_RecyclerViewAdapter orderAdapter;
     ApiServiceJava apiServiceJava;
+    ApiServiceNet apiServiceNet;
     RecyclerView recyclerViewOrder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         apiServiceJava = new ApiServiceJava();
+        apiServiceNet = new ApiServiceNet();
         orderModels = new ArrayList<>();
         setContentView(R.layout.activity_order);
 
@@ -65,11 +66,11 @@ public class OrdersActivity extends AppCompatActivity {
                                     public void onResponse(Call<EventDTO> call, Response<EventDTO> response) {
                                         if(response.isSuccessful()){
                                             eventName = response.body().getEventName();
-                                            orderModels.add(new OrderModel(orderDTO.getNumberOfTickets(), eventName
+                                            orderModels.add(new OrderModel(orderDTO.getOrderID(), orderDTO.getEventID(), orderDTO.getNumberOfTickets(), eventName
                                                     , orderDTO.getTicketCategory().getDescription()
                                                     , String.valueOf(orderDTO.getTotalPrice())));
                                             Log.i("API","SUCCESS EVENT NAME");
-                                            orderAdapter = new Order_RecyclerViewAdapter(OrdersActivity.this, orderModels);
+                                            orderAdapter = new Order_RecyclerViewAdapter(OrdersActivity.this, orderModels,apiServiceNet);
                                             recyclerViewOrder.setAdapter(orderAdapter);
                                             recyclerViewOrder.setLayoutManager(new LinearLayoutManager(OrdersActivity.this));
                                         }else{

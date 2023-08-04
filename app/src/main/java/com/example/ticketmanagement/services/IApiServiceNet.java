@@ -16,6 +16,6 @@ public interface IApiServiceNet {
     @PATCH("api/Order/Patch")
     Call<Void> patchOrder(@Body OrderPatchDTO orderPatchDTO);
 
-    @DELETE("api/Order/Delete/{id}")
+    @DELETE("api/Order/Delete")
     Call<Void> deleteOrder(@Query("id") int id);
 }
