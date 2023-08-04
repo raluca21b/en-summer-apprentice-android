@@ -47,7 +47,7 @@ public class OrdersActivity extends AppCompatActivity {
         });
         recyclerViewOrder = findViewById(R.id.ordersRecyclerView);
 
-        setUpOrderDTO(); // Initiate the API call to populate orderModels
+        setUpOrderDTO();
     }
 
     private void setUpOrderDTO() {
