@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/bubbles">
     <include layout="@layout/toolbar_events"/>
-
     <EditText
         android:id="@+id/searchEventName"
         android:layout_width="match_parent"

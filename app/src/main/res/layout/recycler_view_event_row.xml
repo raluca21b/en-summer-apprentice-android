@@ -65,8 +65,12 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_for_event">
+                android:padding="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/image_for_event"
+                app:layout_constraintVertical_bias="1.0">
+
                 <TextView
                     android:id="@+id/startDateText"
                     android:layout_width="wrap_content"
@@ -75,31 +79,129 @@
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/startDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/startDate"
                     android:layout_marginStart="8dp"
+                    android:text="@string/startDate"
                     app:layout_constraintStart_toEndOf="@id/startDateText"
                     app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/endDateText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="EndDate:"
-                    android:layout_marginTop="5dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/startDateText" />
+
                 <TextView
                     android:id="@+id/endDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
                     android:text="@string/endDate"
+                    android:layout_marginStart="8dp"
                     app:layout_constraintStart_toEndOf="@id/endDateText"
                     app:layout_constraintTop_toBottomOf="@id/startDate" />
+
+                <TextView
+                    android:id="@+id/textViewLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@+id/endDateText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="Location:" />
+
+                <TextView
+                    android:id="@+id/textViewLocationDisplay"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toEndOf="@id/textViewLocation"
+                    app:layout_constraintTop_toBottomOf="@id/endDate"
+                    android:text="Aleea stadionului nr 2, Cluj Napoca" />
+
+                <TextView
+                    android:id="@+id/textViewCapacity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Capacity:"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewLocationDisplay" />
+
+                <TextView
+                    android:id="@+id/textViewCapacityDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toEndOf="@id/textViewCapacity"
+                    app:layout_constraintTop_toBottomOf="@id/textViewLocationDisplay"
+                    android:text="1000"
+                     />
+
+                <TextView
+                    android:id="@+id/textViewType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Type:"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewCapacity" />
+
+                <TextView
+                    android:id="@+id/textViewTypeDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toEndOf="@id/textViewType"
+                    app:layout_constraintTop_toBottomOf="@id/textViewCapacityDisplay"
+                    android:text="Festival de muzica" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroupTicketType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/buttonBuy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Buy"
+                    app:cornerRadius="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/radioGroupTicketType" />
+                <TextView
+                    android:id="@+id/textViewNoTickets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Type number of tickets.."
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewType"/>
+
+
+                <EditText
+                    android:id="@+id/editTextNumber"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:ems="10"
+                    android:hint=""
+                    android:inputType="number"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textViewNoTickets"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewType" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

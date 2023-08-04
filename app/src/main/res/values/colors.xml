@@ -16,6 +16,8 @@
     <color name="light_blue">#b0e2ff</color>
     <color name="blue_gradient_start">#2980b9</color>
     <color name="blue_gradient_end">#6dd5fa</color>
+    <color name="red">#FF0000</color>
+
 
 
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -43,8 +44,8 @@
                 android:textStyle="bold"
                 android:padding="5dp"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/textViewNoTickets"
+                app:layout_constraintTop_toBottomOf="@id/textViewNoTickets"
+                app:layout_constraintStart_toStartOf="parent"
                 android:text="Event:" />
 
             <TextView
@@ -54,20 +55,11 @@
                 android:textStyle="bold"
                 android:padding="5dp"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/textViewEventName"
+                app:layout_constraintTop_toBottomOf="@id/textViewEventName"
+                app:layout_constraintStart_toStartOf="parent"
                 android:text="Category:" />
 
-            <TextView
-                android:id="@+id/textViewPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/textViewCategory"
-                android:text="Price:" />
+
 
             <TextView
                 android:id="@+id/textViewTotalPrice"
@@ -76,64 +68,76 @@
                 android:textStyle="bold"
                 android:padding="5dp"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/textViewPrice"
+                app:layout_constraintTop_toBottomOf="@id/textViewCategory"
+                app:layout_constraintStart_toStartOf="parent"
                 android:text="TotalPrice:" />
 
-            <TextView
+            <EditText
                 android:id="@+id/textViewNoTicketsDisplay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="1x"
+                android:inputType="number"
+                android:text="1"
+                android:enabled="false"
                 android:textColor="@color/ateneo_blue"
-                app:layout_constraintEnd_toEndOf="@+id/textViewNoTickets"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewNoTickets" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textViewNoTickets" />
 
             <TextView
                 android:id="@+id/textViewEventNameDisplay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_marginStart="5dp"
                 android:textColor="@color/ateneo_blue"
                 android:text="@string/event_name"
-                app:layout_constraintEnd_toEndOf="@+id/textViewEventName"
-                app:layout_constraintStart_toEndOf="@+id/textViewNoTickets"
-                app:layout_constraintTop_toBottomOf="@id/textViewEventName" />
+                app:layout_constraintStart_toEndOf="@id/textViewEventName"
+                app:layout_constraintTop_toBottomOf="@id/textViewNoTicketsDisplay" />
 
             <TextView
                 android:id="@+id/textViewCategoryDisplay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="8dp"
                 android:textColor="@color/ateneo_blue"
                 android:text="VIP"
-                app:layout_constraintEnd_toEndOf="@+id/textViewCategory"
-                app:layout_constraintStart_toEndOf="@+id/textViewEventName"
-                app:layout_constraintTop_toBottomOf="@id/textViewCategory" />
+                app:layout_constraintStart_toEndOf="@id/textViewCategory"
+                app:layout_constraintTop_toBottomOf="@id/textViewEventNameDisplay" />
 
-            <TextView
-                android:id="@+id/textViewPriceDisplay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textColor="@color/ateneo_blue"
-                android:text="900"
-                app:layout_constraintEnd_toEndOf="@+id/textViewPrice"
-                app:layout_constraintStart_toEndOf="@+id/textViewCategory"
-                app:layout_constraintTop_toBottomOf="@id/textViewPrice" />
+
 
             <TextView
                 android:id="@+id/textViewTotalPriceDisplay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/ateneo_blue"
                 android:text="900"
-                app:layout_constraintEnd_toEndOf="@+id/textViewTotalPrice"
-                app:layout_constraintStart_toEndOf="@+id/textViewPrice"
-                app:layout_constraintTop_toBottomOf="@id/textViewTotalPrice"/>
+                app:layout_constraintStart_toEndOf="@id/textViewTotalPrice"
+                app:layout_constraintTop_toBottomOf="@id/textViewCategoryDisplay"/>
+
+            <Button
+                android:id="@+id/buttonEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/blue_gradient_start"
+                android:text="Edit"
+                app:cornerRadius="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/buttonDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:text="Delete"
+                app:cornerRadius="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/buttonEdit" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
